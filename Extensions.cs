@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -12,7 +12,7 @@ namespace ObjectExtensions
 {
     public static partial class ObjectExtensions
     {
-        public static ValueTask<T> FromJsonAsync<T>(this Stream s, JsonSerializerOptions options = default, CancellationToken cancellationToken = default) => JsonSerializer.DeserializeAsync<T>(s, options, cancellationToken);
+        public static ValueTask<T> FromJsonAsync<T>(this T entity, Stream s, JsonSerializerOptions options = default, CancellationToken cancellationToken = default) => JsonSerializer.DeserializeAsync<T>(s, options, cancellationToken);
         public static ValueTask<T> FromJsonAsync<T>(this T entity, string s, JsonSerializerOptions options = default, CancellationToken cancellationToken = default) => JsonSerializer.DeserializeAsync<T>(new MemoryStream(Encoding.UTF8.GetBytes(s ?? "")), options, cancellationToken);
         public static async ValueTask<string> ToJsonNoNullsAsync<T>(this T entity, CancellationToken cancellationToken = default) => await ToJsonAsync(entity, JsonIgnoreCondition.WhenWritingNull, cancellationToken);
         public static async ValueTask<string> ToJsonAsync<T>(this T entity, JsonIgnoreCondition nullHandler = JsonIgnoreCondition.Never, CancellationToken cancellationToken = default)
