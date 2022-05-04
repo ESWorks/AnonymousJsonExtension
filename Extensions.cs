@@ -39,7 +39,7 @@ namespace ObjectExtensions
         public static T FromJson<T>(this string s) => (T)JsonSerializer.Deserialize(s, typeof(T));
         public static T FromJson<T>(this T entity, string s) => (T)JsonSerializer.Deserialize(s, typeof(T));
         public static string ToJsonNoNulls<T>(this T entity) => ToJson(entity, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
-        public static string ToJson<T>(this T entity, JsonSerializerOptions options = default) => options is null ? JsonSerializer.Serialize(entity, typeof(T), options) : JsonSerializer.Serialize(entity);
+        public static string ToJson<T>(this T entity, JsonSerializerOptions options = default) => JsonSerializer.Serialize(entity, options);
     }
 
 }
